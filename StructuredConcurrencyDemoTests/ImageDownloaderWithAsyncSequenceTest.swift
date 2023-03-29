@@ -66,13 +66,14 @@ final class ImageDownloaderWithAsyncSequenceTest: XCTestCase {
         let states1 = try await downloadTask1.stream.reduce(into: [RemoteImageLoader.TaskStatus](), { partialResult, status in
             partialResult.append(status)
         })
+        // Now this channel won't finish due to the behavior of using await
+        // You can check the root cause positions at lines 105 and 170 in ImageDownloaderWithAsyncSequence.swift
         let states2 = try await downloadTask2.stream.reduce(into: [RemoteImageLoader.TaskStatus](), { partialResult, status in
             partialResult.append(status)
         })
 
         XCTAssert(downloadTask1.task === downloadTask2.task)
         XCTAssertEqual(states1.count, 12)
-        // Now it works correctly. This is because, even though we are still using only one dataTask, we are using two separate streams for these two requests.
         XCTAssertEqual(states2.count, 12)
     }
 }

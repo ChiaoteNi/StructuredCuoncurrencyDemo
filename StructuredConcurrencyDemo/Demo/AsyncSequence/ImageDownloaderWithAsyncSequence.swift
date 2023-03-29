@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import AsyncAlgorithms
 
 // MARK: - Demo 5. Implement a simple image downloader with the asyncStream
 /*
@@ -15,6 +16,7 @@ import Combine
  - 2nd step: check what will happen when starting to handle duplicated downloading tasks.
  - 3rd step: enable the ability to handle duplicated downloading tasks for the same URL correctly, and use an actor to handle potential data racing issues.
  Then we can discuss potentially dangerous cases involving the actor and await.
+ - 4th step: Switch to using an AsyncChannel or another custom AsyncSequence that you have created
 
  **You can go through these steps by checking out to each commit.**
 
@@ -22,13 +24,15 @@ import Combine
  Since potentially dangerous cases can arise due to await in this use case, please consider using a lock to access caches in a production app
 */
 
+typealias TaskStatusChannel = AsyncThrowingChannel<RemoteImageLoader.TaskStatus, any Error>
+
 final class DownloadTask {
-    let stream: AsyncThrowingStream<RemoteImageLoader.TaskStatus, Error>
+    let stream: TaskStatusChannel
     var task: URLSessionDataTask?
     let subscribers: Set<AnyCancellable>?
 
     init(
-        stream: AsyncThrowingStream<RemoteImageLoader.TaskStatus, Error>,
+        stream: TaskStatusChannel,
         task: URLSessionDataTask? = nil,
         subscribers: Set<AnyCancellable>? = nil
     ) {
@@ -45,8 +49,6 @@ protocol ImageDataDecoding: Sendable {
 
 actor RemoteImageLoader {
 
-    typealias StreamContinuation = AsyncThrowingStream<TaskStatus, Error>.Continuation
-
     enum TaskStatus {
         case downloading(_ progress: Float)
         case finished(UIImage)
@@ -61,22 +63,26 @@ actor RemoteImageLoader {
 
     private class Cache {
         let dataTask: URLSessionDataTask
-        var continuations: [StreamContinuation]
+        var channels: [TaskStatusChannel]
 
         init(
             dataTask: URLSessionDataTask,
-            continuation: StreamContinuation
+            channel: TaskStatusChannel
         ) {
             self.dataTask = dataTask
-            self.continuations = [continuation]
+            self.channels = [channel]
         }
     }
 
-    private actor CacheStore {
+    private class CacheStore {
         private var caches: [URL: Cache] = [:]
 
-        func add(_ cache: Cache, with url: URL) {
-            caches[url] = cache
+        func add(_ newCache: Cache, with url: URL) {
+            if let cache = caches[url] {
+                cache.channels.append(contentsOf: newCache.channels)
+            } else {
+                caches[url] = newCache
+            }
         }
 
         func getCache(with url: URL) -> Cache? {
@@ -97,33 +103,61 @@ actor RemoteImageLoader {
     }
 
     func loadImage(with url: URL) async -> DownloadTask {
-        if let cache = await cacheStore.getCache(with: url) {
-            var cacheContinuation: StreamContinuation?
-            let stream = AsyncThrowingStream<TaskStatus, Error> { continuation in
-                cacheContinuation = continuation
-            }
-            if let cacheContinuation = cacheContinuation {
-                cache.continuations.append(cacheContinuation)
-            } else {
-                assertionFailure("🎆")
-            }
-            let downloadTask = DownloadTask(stream: stream, task: cache.dataTask)
+        let channel: TaskStatusChannel = AsyncThrowingChannel()
+
+        if let cache = cacheStore.getCache(with: url) {
+            let newCache = Cache(dataTask: cache.dataTask, channel: channel)
+            cacheStore.add(newCache, with: url)
+
+            let downloadTask = DownloadTask(stream: channel, task: cache.dataTask)
             return downloadTask
         }
 
-        var task: URLSessionDataTask?
-        var cacheContinuation: StreamContinuation?
+        let request: URLRequest = URLRequest(
+            url: url,
+            cachePolicy: .reloadIgnoringLocalCacheData,
+            timeoutInterval: 30
+        )
+        let dataTask = session.dataTask(with: request) { data, response, error in
+            Task { [weak self] in
+                guard
+                    let self = self,
+                    let cache = await self.cacheStore.getCache(with: url)
+                else {
+                    assertionFailure("No cache is found")
+                    return
+                }
+
+                if let data = data,
+                   let image = self.decoder.decode(data: data) {
+                    await self.traverseChannels(from: cache) { channel in
+                        await channel.send(.finished(image))
+                        channel.finish()
+                    }
+                } else if let error = error {
+                    await self.traverseChannels(from: cache) { channel in
+                        channel.fail(error)
+                        channel.finish()
+                    }
+                } else {
+                    let code = (response as? HTTPURLResponse)?.statusCode ?? 0
+                    let error: NSError = .init(
+                        domain: url.absoluteString,
+                        code: code,
+                        userInfo: [NSLocalizedDescriptionKey: "fetch data fail"]
+                    )
+                    await self.traverseChannels(from: cache) { channel in
+                        channel.fail(error)
+                        channel.finish()
+                    }
+                }
+            }
+        }
+
         var subscribers: Set<AnyCancellable> = Set()
-        // You can see the document says that AsyncStream is well-suited to adapt callback- or delegation-based APIs to participate with async-await.
-        // However, achieving the same outcome using AsyncStream may be more challenging than using delegates and callbacks,
-        // unless you keep the continuations and update all of the AsyncThrowingStream with them.
-        let stream = AsyncThrowingStream { continuation in
-            let request: URLRequest = URLRequest(
-                url: url,
-                cachePolicy: .reloadIgnoringLocalCacheData,
-                timeoutInterval: 30
-            )
-            let dataTask = session.dataTask(with: request) { data, response, error in
+        dataTask.progress
+            .publisher(for: \Progress.completedUnitCount)
+            .sink { value in
                 Task { [weak self] in
                     guard
                         let self = self,
@@ -131,55 +165,29 @@ actor RemoteImageLoader {
                     else {
                         return
                     }
-
-                    if let data = data,
-                       let image = self.decoder.decode(data: data) {
-                        cache.continuations.forEach { continuation in
-                            continuation.yield(TaskStatus.finished(image))
-                            continuation.finish()
-                        }
-                    } else if let error = error {
-                        cache.continuations.forEach { continuation in
-                            continuation.finish(throwing: error)
-                        }
-                    } else {
-                        let code = (response as? HTTPURLResponse)?.statusCode ?? 0
-                        let error: NSError = .init(
-                            domain: url.absoluteString,
-                            code: code,
-                            userInfo: [NSLocalizedDescriptionKey: "fetch data fail"]
-                        )
-                        cache.continuations.forEach { continuation in
-                            continuation.finish(throwing: error)
-                        }
+                    let progress = Float(value) / Float(dataTask.progress.totalUnitCount)
+                    await self.traverseChannels(from: cache) { channel in
+                        await channel.send(TaskStatus.downloading(progress))
                     }
                 }
-            }
-            dataTask.progress
-                .publisher(for: \.completedUnitCount)
-                .sink { value in
-                    Task { [weak self] in
-                        guard let cache = await self?.cacheStore.getCache(with: url) else {
-                            return
-                        }
-                        let progress = Float(value) / Float(dataTask.progress.totalUnitCount)
-                        cache.continuations.forEach {
-                            $0.yield(TaskStatus.downloading(progress))
-                        }
-                    }
-                }.store(in: &subscribers)
+            }.store(in: &subscribers)
 
-            task = dataTask
-            cacheContinuation = continuation
-        }
-        let downloadTask = DownloadTask(stream: stream, task: task, subscribers: subscribers)
+        let cache = Cache(dataTask: dataTask, channel: channel)
+        cacheStore.add(cache, with: url)
 
-        if let task = task, let cacheContinuation = cacheContinuation {
-            let cache = Cache(dataTask: task, continuation: cacheContinuation)
-            await self.cacheStore.add(cache, with: url)
-        } else {
-            assertionFailure("🎆")
-        }
+        let downloadTask = DownloadTask(stream: channel, task: dataTask, subscribers: subscribers)
         return downloadTask
+    }
+}
+
+extension RemoteImageLoader {
+
+    private func traverseChannels(
+        from cache: Cache,
+        then handler: (TaskStatusChannel) async -> Void
+    ) async {
+        for channel in cache.channels {
+            await handler(channel)
+        }
     }
 }
