@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9343567029D3E80800F9024F /* FakeBundleServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566D29D3E80800F9024F /* FakeBundleServices.swift */; };
+		9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift */; };
+		9343567229D3E80800F9024F /* AsyncSequenceDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */; };
+		9343567629D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */; };
+		9343567729D3E81900F9024F /* AsyncSequenceDemoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */; };
 		93D6A86129D326C400940CCF /* StructuredConcurrencyDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */; };
 		93D6A86329D326C400940CCF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A86229D326C400940CCF /* ContentView.swift */; };
 		93D6A86529D326C500940CCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93D6A86429D326C500940CCF /* Assets.xcassets */; };
@@ -58,6 +63,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9343566D29D3E80800F9024F /* FakeBundleServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBundleServices.swift; sourceTree = "<group>"; };
+		9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequence.swift; sourceTree = "<group>"; };
+		9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemo.swift; sourceTree = "<group>"; };
+		9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequenceTest.swift; sourceTree = "<group>"; };
+		9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemoTest.swift; sourceTree = "<group>"; };
 		93D6A85D29D326C400940CCF /* StructuredConcurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StructuredConcurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredConcurrencyDemoApp.swift; sourceTree = "<group>"; };
 		93D6A86229D326C400940CCF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -173,6 +183,8 @@
 		93D6A87029D326C500940CCF /* StructuredConcurrencyDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */,
+				9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */,
 			);
 			path = StructuredConcurrencyDemoTests;
 			sourceTree = "<group>";
@@ -186,6 +198,7 @@
 				93D6A88B29D3271400940CCF /* Cancel */,
 				93D6A8B829D3271400940CCF /* Grouping Tasks */,
 				93D6A88E29D3271400940CCF /* MainActor */,
+				93D6A8B329D3271400940CCF /* AsyncSequence */,
 				93D6A8B229D3271400940CCF /* TODO */,
 			);
 			path = Demo;
@@ -292,7 +305,6 @@
 		93D6A8B229D3271400940CCF /* TODO */ = {
 			isa = PBXGroup;
 			children = (
-				93D6A8B329D3271400940CCF /* AsyncSequence */,
 				9343566B29D3BFB900F9024F /* Actor */,
 				93D6A8B529D3271400940CCF /* Sendable */,
 				9343566C29D3BFC900F9024F /* Swift Async Algorithms */,
@@ -303,6 +315,9 @@
 		93D6A8B329D3271400940CCF /* AsyncSequence */ = {
 			isa = PBXGroup;
 			children = (
+				9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */,
+				9343566D29D3E80800F9024F /* FakeBundleServices.swift */,
+				9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift */,
 			);
 			path = AsyncSequence;
 			sourceTree = "<group>";
@@ -377,6 +392,7 @@
 					};
 					93D6A86C29D326C500940CCF = {
 						CreatedOnToolsVersion = 14.1;
+						LastSwiftMigration = 1410;
 						TestTargetID = 93D6A85C29D326C400940CCF;
 					};
 				};
@@ -435,6 +451,7 @@
 				93D6A8CA29D3271400940CCF /* Store.swift in Sources */,
 				93D6A8C429D3271400940CCF /* MessageViewModel.swift in Sources */,
 				93D6A8D229D3271400940CCF /* SenderTitle.swift in Sources */,
+				9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift in Sources */,
 				93D6A8D929D3271400940CCF /* BasicDemoView.swift in Sources */,
 				93D6A8C029D3271400940CCF /* MessageModel.swift in Sources */,
 				93D6A8C629D3271400940CCF /* MessageProvider.swift in Sources */,
@@ -444,6 +461,7 @@
 				93D6A8BE29D3271400940CCF /* CancelDemoView.swift in Sources */,
 				93D6A8E029D3271400940CCF /* GroupingTasksDemo.swift in Sources */,
 				93D6A8DE29D3271400940CCF /* GroupingTasksDemoView.swift in Sources */,
+				9343567229D3E80800F9024F /* AsyncSequenceDemo.swift in Sources */,
 				93D6A86329D326C400940CCF /* ContentView.swift in Sources */,
 				93D6A8CE29D3271400940CCF /* TrackScrollingScrollView.swift in Sources */,
 				93D6A8D729D3271400940CCF /* MainActorDemoView.swift in Sources */,
@@ -453,6 +471,7 @@
 				93D6A8C929D3271400940CCF /* ImageMessageProvider.swift in Sources */,
 				93D6A8C229D3271400940CCF /* Message.swift in Sources */,
 				93D6A8CB29D3271400940CCF /* RemoteMessageWorker.swift in Sources */,
+				9343567029D3E80800F9024F /* FakeBundleServices.swift in Sources */,
 				93D6A8D629D3271400940CCF /* MainActorDemo.swift in Sources */,
 				93D6A8D529D3271400940CCF /* MessageView.swift in Sources */,
 				93D6A8BF29D3271400940CCF /* Cells.swift in Sources */,
@@ -467,6 +486,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9343567729D3E81900F9024F /* AsyncSequenceDemoTest.swift in Sources */,
+				9343567629D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,15 +679,22 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7Y4TPNE48W;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.iOS-Taipei.StructuredConcurrencyDemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StructuredConcurrencyDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StructuredConcurrencyDemo";
@@ -678,11 +706,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7Y4TPNE48W;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.iOS-Taipei.StructuredConcurrencyDemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

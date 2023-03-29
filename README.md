@@ -32,3 +32,10 @@ All demos work with its demo view, which is able to work with SwiftUI Preview, s
 - Put the demo view on the left side with canvas and the demo on the right.
 - ex: BasicDemoView (left) / BasicDemo (right)
 ![Screen Shot 2023-02-05 at 2 34 54 PM](https://user-images.githubusercontent.com/40178645/217272062-7f5e1f13-4fb4-44bf-852d-20e936bdd14f.png)
+
+**Part II:**
+Most of the demos are triggered by the test cases, so please try to use the demo project in the following way:
+
+- Put the demo on the left side, and the test cases on the right.
+- ex: AsyncSequenceDemo.swift (left) / AsyncSequenceDemoTest.swift (right)
+![Screen Shot 2023-03-29 at 10 59 50 AM](https://user-images.githubusercontent.com/40178645/228415642-a9f970ff-ac08-4f3a-b321-c34b0bacbc91.png)
