@@ -22,10 +22,20 @@ import Combine
  Since potentially dangerous cases can arise due to await in this use case, please consider using a lock to access caches in a production app
 */
 
-struct DownloadTask {
+final class DownloadTask {
     let stream: AsyncThrowingStream<RemoteImageLoader.TaskStatus, Error>
     var task: URLSessionDataTask?
     let subscribers: Set<AnyCancellable>
+
+    init(
+        stream: AsyncThrowingStream<RemoteImageLoader.TaskStatus, Error>,
+        task: URLSessionDataTask? = nil,
+        subscribers: Set<AnyCancellable>
+    ) {
+        self.stream = stream
+        self.task = task
+        self.subscribers = subscribers
+    }
 }
 
 // For testing purpose
@@ -33,7 +43,7 @@ protocol ImageDataDecoding {
     func decode(data: Data) -> UIImage?
 }
 
-final class RemoteImageLoader {
+actor RemoteImageLoader {
 
     enum TaskStatus {
         case downloading(_ progress: Float)
@@ -60,8 +70,14 @@ final class RemoteImageLoader {
     }
 
     func loadImage(with url: URL) -> DownloadTask {
+        if let task = caches[url] {
+            return task
+        }
         var task: URLSessionDataTask?
         var subscribers: Set<AnyCancellable> = Set()
+        // You can see the document says that AsyncStream is well-suited to adapt callback- or delegation-based APIs to participate with async-await.
+        // However, achieving the same outcome using AsyncStream may be more challenging than using delegates and callbacks,
+        // unless you keep the continuations and update all of the AsyncThrowingStream with them.
         let stream = AsyncThrowingStream { continuation in
             let request: URLRequest = URLRequest(
                 url: url,
@@ -85,6 +101,7 @@ final class RemoteImageLoader {
                     )
                     continuation.finish(throwing: error)
                 }
+                self?.caches.removeValue(forKey: url)
             }
             dataTask.progress.publisher(for: \.completedUnitCount).sink { value in
                 let progress = Float(value) / Float(dataTask.progress.totalUnitCount)
@@ -92,8 +109,8 @@ final class RemoteImageLoader {
             }.store(in: &subscribers)
             task = dataTask
         }
-        return DownloadTask(stream: stream, task: task, subscribers: subscribers)
+        let downloadTask = DownloadTask(stream: stream, task: task, subscribers: subscribers)
+        caches[url] = downloadTask
+        return downloadTask
     }
 }
-
-
