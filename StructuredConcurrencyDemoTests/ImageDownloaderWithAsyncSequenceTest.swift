@@ -23,24 +23,33 @@ final class ImageDownloaderWithAsyncSequenceTest: XCTestCase {
         let session = MockURLSession(totalUnitCount: 10)
         let decoder = MockDecodeSucceedDecoder()
         sut = RemoteImageLoader(session: session, dataDecoder: decoder)
-        let expectation = XCTestExpectation()
 
         let url = URL(string: "http://dummyURL.com")!
-        sut.loadImage(
-            with: url,
-            progressHandler: { _ in },
-            then: { result in
-                switch result {
-                case .success:
-                    expectation.fulfill()
-                case .failure(let error):
-                    XCTFail(error.localizedDescription)
-                }
-            })
-        XCTWaiter().wait(for: [expectation], timeout: 5)
+        let task = sut.loadImage(with: url)
+
+        let states = try await task.stream.reduce(into: [RemoteImageLoader.TaskStatus](), { partialResult, status in
+            partialResult.append(status)
+        })
+        XCTAssertEqual(states.count, 12)
     }
 
     func testMultipleLoadImageTask() async throws {
+        let session = MockURLSession(totalUnitCount: 10)
+        let decoder = MockDecodeSucceedDecoder()
+        sut = RemoteImageLoader(session: session, dataDecoder: decoder)
+
+        async let task1 = sut.loadImage(with: URL(string: "http://someImage1.com")!)
+        async let task2 = sut.loadImage(with: URL(string: "http://someImage2.com")!)
+
+        let states1 = try await task1.stream.reduce(into: [RemoteImageLoader.TaskStatus](), { partialResult, status in
+            partialResult.append(status)
+        })
+        let states2 = try await task2.stream.reduce(into: [RemoteImageLoader.TaskStatus](), { partialResult, status in
+            partialResult.append(status)
+        })
+
+        XCTAssertEqual(states1.count, 12)
+        XCTAssertEqual(states2.count, 12)
     }
 
     func testDuplicatedLoadImageTask() async throws {

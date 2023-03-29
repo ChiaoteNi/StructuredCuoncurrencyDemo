@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 // MARK: - Demo 5. Implement a simple image downloader with the asyncStream
 /*
@@ -13,7 +14,7 @@ import UIKit
  - 1st step: refactor the interface to use AsyncSequence as an alternative to using callback closures.
  - 2nd step: check what will happen when starting to handle duplicated downloading tasks.
  - 3rd step: enable the ability to handle duplicated downloading tasks for the same URL correctly, and use an actor to handle potential data racing issues.
- - 4th step: discuss potentially dangerous cases involving the actor and await.
+ Then we can discuss potentially dangerous cases involving the actor and await.
 
  **You can go through these steps by checking out to each commit.**
 
@@ -21,28 +22,10 @@ import UIKit
  Since potentially dangerous cases can arise due to await in this use case, please consider using a lock to access caches in a production app
 */
 
-final class ImageDownloadTask {
-
-    var dataTask: URLSessionDataTask
-    fileprivate var observation: NSKeyValueObservation?
-
-    deinit {
-        observation?.invalidate()
-        observation = nil
-    }
-
-    init(with dataTask: URLSessionDataTask, progressObservation: NSKeyValueObservation) {
-        self.dataTask = dataTask
-        self.observation = progressObservation
-    }
-
-    func execute() -> Void {
-        dataTask.resume()
-    }
-
-    func cancel() {
-        dataTask.cancel()
-    }
+struct DownloadTask {
+    let stream: AsyncThrowingStream<RemoteImageLoader.TaskStatus, Error>
+    var task: URLSessionDataTask?
+    let subscribers: Set<AnyCancellable>
 }
 
 // For testing purpose
@@ -51,6 +34,11 @@ protocol ImageDataDecoding {
 }
 
 final class RemoteImageLoader {
+
+    enum TaskStatus {
+        case downloading(_ progress: Float)
+        case finished(UIImage)
+    }
 
     class ImageDataDecoder: ImageDataDecoding {
         func decode(data: Data) -> UIImage? {
@@ -61,6 +49,7 @@ final class RemoteImageLoader {
 
     private let session: URLSession
     private let decoder: ImageDataDecoding
+    private var caches: [URL: DownloadTask] = [:]
 
     init(
         session: URLSession = URLSession(configuration: .ephemeral, delegate: nil, delegateQueue: nil),
@@ -70,42 +59,40 @@ final class RemoteImageLoader {
         self.decoder = dataDecoder
     }
 
-    func loadImage(
-        with url: URL,
-        progressHandler: @escaping (Double) -> Void,
-        then handler: @escaping (Result<UIImage, Error>) -> Void
-    ) -> ImageDownloadTask {
-
-        let request: URLRequest = .init(
-            url: url,
-            cachePolicy: .reloadIgnoringLocalCacheData,
-            timeoutInterval: 30
-        )
-        let task = session.dataTask(with: request) { [weak self] data, response, error in
-            if let data = data,
-               let image = self?.decoder.decode(data: data) {
-                handler(.success(image))
-            } else if let error = error {
-                handler(.failure(error))
-            } else {
-                let code = (response as? HTTPURLResponse)?.statusCode ?? 0
-                let error: NSError = .init(
-                    domain: url.absoluteString,
-                    code: code,
-                    userInfo: [NSLocalizedDescriptionKey: "fetch data fail"]
-                )
-                handler(.failure(error))
+    func loadImage(with url: URL) -> DownloadTask {
+        var task: URLSessionDataTask?
+        var subscribers: Set<AnyCancellable> = Set()
+        let stream = AsyncThrowingStream { continuation in
+            let request: URLRequest = URLRequest(
+                url: url,
+                cachePolicy: .reloadIgnoringLocalCacheData,
+                timeoutInterval: 30
+            )
+            let dataTask = session.dataTask(with: request) { [weak self] data, response, error in
+                if let data = data,
+                   let self = self,
+                   let image = self.decoder.decode(data: data) {
+                    continuation.yield(TaskStatus.finished(image))
+                    continuation.finish()
+                } else if let error = error {
+                    continuation.finish(throwing: error)
+                } else {
+                    let code = (response as? HTTPURLResponse)?.statusCode ?? 0
+                    let error: NSError = .init(
+                        domain: url.absoluteString,
+                        code: code,
+                        userInfo: [NSLocalizedDescriptionKey: "fetch data fail"]
+                    )
+                    continuation.finish(throwing: error)
+                }
             }
+            dataTask.progress.publisher(for: \.completedUnitCount).sink { value in
+                let progress = Float(value) / Float(dataTask.progress.totalUnitCount)
+                continuation.yield(TaskStatus.downloading(progress))
+            }.store(in: &subscribers)
+            task = dataTask
         }
-
-        let observation = task.progress.observe(
-            \.fractionCompleted,
-             options: .new
-        ) { progressObj, newValue in
-            progressHandler(Double(progressObj.fractionCompleted))
-        }
-
-        return ImageDownloadTask(with: task, progressObservation: observation)
+        return DownloadTask(stream: stream, task: task, subscribers: subscribers)
     }
 }
 
