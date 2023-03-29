@@ -70,16 +70,16 @@ final class ImageDownloaderWithAsyncSequenceTest: XCTestCase {
             partialResult.append(status)
         })
 
-        XCTAssert(downloadTask1 === downloadTask2)
+        XCTAssert(downloadTask1.task === downloadTask2.task)
         XCTAssertEqual(states1.count, 12)
-        // Just like its name suggests, AsyncStream pops elements to us when we access it. This behavior makes sense, and means that we should not use it in the same way as the current implementation.
-        XCTAssertEqual(states2.count, 0)
+        // Now it works correctly. This is because, even though we are still using only one dataTask, we are using two separate streams for these two requests.
+        XCTAssertEqual(states2.count, 12)
     }
 }
 
 extension ImageDownloaderWithAsyncSequenceTest {
 
-    class MockDecodeSucceedDecoder: ImageDataDecoding {
+    final class MockDecodeSucceedDecoder: ImageDataDecoding {
         func decode(data: Data) -> UIImage? {
             UIImage()
         }
