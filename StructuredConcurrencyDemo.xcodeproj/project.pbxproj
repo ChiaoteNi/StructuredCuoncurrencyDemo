@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		932FA34C29D3F5FA009CBC23 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 932FA34B29D3F5FA009CBC23 /* AsyncAlgorithms */; };
 		9343567029D3E80800F9024F /* FakeBundleServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566D29D3E80800F9024F /* FakeBundleServices.swift */; };
-		9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift */; };
+		9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift */; };
 		9343567229D3E80800F9024F /* AsyncSequenceDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */; };
 		9343567629D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */; };
 		9343567729D3E81900F9024F /* AsyncSequenceDemoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */; };
@@ -65,7 +65,7 @@
 
 /* Begin PBXFileReference section */
 		9343566D29D3E80800F9024F /* FakeBundleServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBundleServices.swift; sourceTree = "<group>"; };
-		9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequence.swift; sourceTree = "<group>"; };
+		9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequenceDemo.swift; sourceTree = "<group>"; };
 		9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemo.swift; sourceTree = "<group>"; };
 		9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequenceTest.swift; sourceTree = "<group>"; };
 		9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemoTest.swift; sourceTree = "<group>"; };
@@ -144,6 +144,15 @@
 			path = "Swift Async Algorithms";
 			sourceTree = "<group>";
 		};
+		93C363C32A07AC0F0059A820 /* AsyncSequenceDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */,
+				9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */,
+			);
+			path = AsyncSequenceDemoTests;
+			sourceTree = "<group>";
+		};
 		93D6A85429D326C400940CCF = {
 			isa = PBXGroup;
 			children = (
@@ -185,8 +194,6 @@
 		93D6A87029D326C500940CCF /* StructuredConcurrencyDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */,
-				9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */,
 			);
 			path = StructuredConcurrencyDemoTests;
 			sourceTree = "<group>";
@@ -317,9 +324,10 @@
 		93D6A8B329D3271400940CCF /* AsyncSequence */ = {
 			isa = PBXGroup;
 			children = (
+				93C363C32A07AC0F0059A820 /* AsyncSequenceDemoTests */,
 				9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */,
 				9343566D29D3E80800F9024F /* FakeBundleServices.swift */,
-				9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift */,
+				9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift */,
 			);
 			path = AsyncSequence;
 			sourceTree = "<group>";
@@ -459,7 +467,7 @@
 				93D6A8CA29D3271400940CCF /* Store.swift in Sources */,
 				93D6A8C429D3271400940CCF /* MessageViewModel.swift in Sources */,
 				93D6A8D229D3271400940CCF /* SenderTitle.swift in Sources */,
-				9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequence.swift in Sources */,
+				9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift in Sources */,
 				93D6A8D929D3271400940CCF /* BasicDemoView.swift in Sources */,
 				93D6A8C029D3271400940CCF /* MessageModel.swift in Sources */,
 				93D6A8C629D3271400940CCF /* MessageProvider.swift in Sources */,
