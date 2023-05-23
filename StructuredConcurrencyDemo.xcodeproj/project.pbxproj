@@ -13,6 +13,7 @@
 		9343567229D3E80800F9024F /* AsyncSequenceDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */; };
 		9343567629D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */; };
 		9343567729D3E81900F9024F /* AsyncSequenceDemoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */; };
+		935D81852A06477100EEBDC9 /* ActorDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D81842A06477100EEBDC9 /* ActorDemo.swift */; };
 		93D6A86129D326C400940CCF /* StructuredConcurrencyDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */; };
 		93D6A86329D326C400940CCF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A86229D326C400940CCF /* ContentView.swift */; };
 		93D6A86529D326C500940CCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93D6A86429D326C500940CCF /* Assets.xcassets */; };
@@ -69,6 +70,9 @@
 		9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemo.swift; sourceTree = "<group>"; };
 		9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequenceTest.swift; sourceTree = "<group>"; };
 		9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemoTest.swift; sourceTree = "<group>"; };
+		935D81832A0644A600EEBDC9 /* ActorReentrancyDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ActorReentrancyDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		935D81842A06477100EEBDC9 /* ActorDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorDemo.swift; sourceTree = "<group>"; };
+		935D81862A0663D200EEBDC9 /* ActorDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ActorDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		93D6A85D29D326C400940CCF /* StructuredConcurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StructuredConcurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredConcurrencyDemoApp.swift; sourceTree = "<group>"; };
 		93D6A86229D326C400940CCF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 		9343566B29D3BFB900F9024F /* Actor */ = {
 			isa = PBXGroup;
 			children = (
+				935D81862A0663D200EEBDC9 /* ActorDemo.playground */,
+				935D81832A0644A600EEBDC9 /* ActorReentrancyDemo.playground */,
 			);
 			path = Actor;
 			sourceTree = "<group>";
@@ -208,6 +214,7 @@
 				93D6A8B829D3271400940CCF /* Grouping Tasks */,
 				93D6A88E29D3271400940CCF /* MainActor */,
 				93D6A8B329D3271400940CCF /* AsyncSequence */,
+				9343566B29D3BFB900F9024F /* Actor */,
 				93D6A8B229D3271400940CCF /* TODO */,
 			);
 			path = Demo;
@@ -314,9 +321,9 @@
 		93D6A8B229D3271400940CCF /* TODO */ = {
 			isa = PBXGroup;
 			children = (
-				9343566B29D3BFB900F9024F /* Actor */,
 				93D6A8B529D3271400940CCF /* Sendable */,
 				9343566C29D3BFC900F9024F /* Swift Async Algorithms */,
+				935D81842A06477100EEBDC9 /* ActorDemo.swift */,
 			);
 			path = TODO;
 			sourceTree = "<group>";
@@ -472,6 +479,7 @@
 				93D6A8C029D3271400940CCF /* MessageModel.swift in Sources */,
 				93D6A8C629D3271400940CCF /* MessageProvider.swift in Sources */,
 				93D6A8CF29D3271400940CCF /* URLImage.swift in Sources */,
+				935D81852A06477100EEBDC9 /* ActorDemo.swift in Sources */,
 				93D6A8D429D3271400940CCF /* MessageProviderStore.swift in Sources */,
 				93D6A8D829D3271400940CCF /* BasicDemo.swift in Sources */,
 				93D6A8BE29D3271400940CCF /* CancelDemoView.swift in Sources */,
