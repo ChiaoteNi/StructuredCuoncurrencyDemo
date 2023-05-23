@@ -11,6 +11,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                // MARK: PART I
                 NavigationLink("Basic demo") {
                     BasicDemoView()
                 }
@@ -26,10 +27,11 @@ struct ContentView: View {
                 NavigationLink("MainActor") {
                     MainActorDemoView()
                 }
-//                Spacer()
-//                NavigationLink("Sendable") {
-//                    SendableDemoView()
-//                }
+                // MARK: PART II
+                // The demos for AsyncSequence will be shown in AsyncSequenceDemoTest.swift and ImageDownloaderWithAsyncSequenceTest.swift
+                // Please run the tests to see how they will perform.
+
+                // MARK: PART III
             }
             .padding(50)
         }
