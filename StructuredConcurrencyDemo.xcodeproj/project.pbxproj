@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9301FC982B2EA74C006880DC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9301FC972B2EA74B006880DC /* README.md */; };
 		932FA34C29D3F5FA009CBC23 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 932FA34B29D3F5FA009CBC23 /* AsyncAlgorithms */; };
 		9343567029D3E80800F9024F /* FakeBundleServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566D29D3E80800F9024F /* FakeBundleServices.swift */; };
 		9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9301FC972B2EA74B006880DC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9343566D29D3E80800F9024F /* FakeBundleServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBundleServices.swift; sourceTree = "<group>"; };
 		9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequenceDemo.swift; sourceTree = "<group>"; };
 		9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemo.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		93D6A85429D326C400940CCF = {
 			isa = PBXGroup;
 			children = (
+				9301FC972B2EA74B006880DC /* README.md */,
 				93D6A85F29D326C400940CCF /* StructuredConcurrencyDemo */,
 				93D6A87029D326C500940CCF /* StructuredConcurrencyDemoTests */,
 				93D6A85E29D326C400940CCF /* Products */,
@@ -446,6 +449,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9301FC982B2EA74C006880DC /* README.md in Resources */,
 				93D6A86829D326C500940CCF /* Preview Assets.xcassets in Resources */,
 				93D6A86529D326C500940CCF /* Assets.xcassets in Resources */,
 			);

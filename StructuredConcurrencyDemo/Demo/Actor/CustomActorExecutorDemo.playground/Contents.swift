@@ -11,6 +11,8 @@ import Foundation
 @SpecificQueueActor
 class Printer {
 
+    // The `async` here is not required,
+    // I leaved it here was to modify the demonstration code for different cases easily during the live demo.
     func execute(priority: TaskPriority, delays: UInt64 = 1) async {
         print("\(Thread.current)")
         Task(priority: priority) {

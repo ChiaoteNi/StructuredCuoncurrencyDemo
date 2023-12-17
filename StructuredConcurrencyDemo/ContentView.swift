@@ -28,11 +28,16 @@ struct ContentView: View {
                     MainActorDemoView()
                 }
                 // MARK: PART II
-                // The demos for AsyncSequence will be shown in AsyncSequenceDemoTest.swift and ImageDownloaderWithAsyncSequenceTest.swift
+                // The demostrations for AsyncSequence will be shown in AsyncSequenceDemoTest.swift and ImageDownloaderWithAsyncSequenceTest.swift
                 // Please run the tests to see how they will perform.
+                // You can find these tests in the following path:
+                // ./Demo/AsyncSequence/AsyncSequenceDemoTests
 
                 // MARK: PART III
-                // The demos for
+                // For demostrations for Actor, you can find them in the following playground files
+                // 1. ActorDemo.playground
+                // 2. CustomActorExecutorDemo.playground
+                // 3. ActorReentrancyDemo.playground
             }
             .padding(50)
         }
