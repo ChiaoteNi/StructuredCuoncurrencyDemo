@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import AsyncAlgorithms
 
 // MARK: - Demo 5. Implement a simple image downloader with the asyncStream
 /*
@@ -16,7 +15,8 @@ import AsyncAlgorithms
  - 2nd step: check what will happen when starting to handle duplicated downloading tasks.
  - 3rd step: enable the ability to handle duplicated downloading tasks for the same URL correctly, and use an actor to handle potential data racing issues.
  Then we can discuss potentially dangerous cases involving the actor and await.
- - 4th step: Switch to using an AsyncChannel or another custom AsyncSequence that you have created
+ - 4th step: switch to using an AsyncChannel or another custom AsyncSequence that you have created.
+ - 5th step: switch to using the newest API, which was released in Swift 5.9, `makeStream` to simplify the implementation.
 
  **You can go through these steps by checking out to each commit.**
 
@@ -24,15 +24,15 @@ import AsyncAlgorithms
  Since potentially dangerous cases can arise due to await in this use case, please consider using a lock to access caches in a production app
 */
 
-typealias TaskStatusChannel = AsyncThrowingChannel<RemoteImageLoader.TaskStatus, any Error>
+typealias TaskStatusStream = AsyncThrowingStream<RemoteImageLoader.TaskStatus, any Error>
 
 final class DownloadTask {
-    let stream: TaskStatusChannel
+    let stream: TaskStatusStream
     var task: URLSessionDataTask?
     let subscribers: Set<AnyCancellable>?
 
     init(
-        stream: TaskStatusChannel,
+        stream: TaskStatusStream,
         task: URLSessionDataTask? = nil,
         subscribers: Set<AnyCancellable>? = nil
     ) {
@@ -63,14 +63,14 @@ actor RemoteImageLoader {
 
     private class Cache {
         let dataTask: URLSessionDataTask
-        var channels: [TaskStatusChannel]
+        var continuations: [TaskStatusStream.Continuation]
 
         init(
             dataTask: URLSessionDataTask,
-            channel: TaskStatusChannel
+            continuation: TaskStatusStream.Continuation
         ) {
             self.dataTask = dataTask
-            self.channels = [channel]
+            self.continuations = [continuation]
         }
     }
 
@@ -79,7 +79,7 @@ actor RemoteImageLoader {
 
         func add(_ newCache: Cache, with url: URL) {
             if let cache = caches[url] {
-                cache.channels.append(contentsOf: newCache.channels)
+                cache.continuations.append(contentsOf: newCache.continuations)
             } else {
                 caches[url] = newCache
             }
@@ -103,13 +103,13 @@ actor RemoteImageLoader {
     }
 
     func loadImage(with url: URL) async -> DownloadTask {
-        let channel: TaskStatusChannel = AsyncThrowingChannel()
+        let (stream, continuation) = TaskStatusStream.makeStream()
 
         if let cache = cacheStore.getCache(with: url) {
-            let newCache = Cache(dataTask: cache.dataTask, channel: channel)
+            let newCache = Cache(dataTask: cache.dataTask, continuation: continuation)
             cacheStore.add(newCache, with: url)
 
-            let downloadTask = DownloadTask(stream: channel, task: cache.dataTask)
+            let downloadTask = DownloadTask(stream: stream, task: cache.dataTask)
             return downloadTask
         }
 
@@ -130,14 +130,13 @@ actor RemoteImageLoader {
 
                 if let data = data,
                    let image = self.decoder.decode(data: data) {
-                    await self.traverseChannels(from: cache) { channel in
-                        await channel.send(.finished(image))
-                        channel.finish()
+                    await self.traverseStreams(from: cache) { continuation in
+                        continuation.yield(.finished(image))
+                        continuation.finish()
                     }
                 } else if let error = error {
-                    await self.traverseChannels(from: cache) { channel in
-                        channel.fail(error)
-                        channel.finish()
+                    await self.traverseStreams(from: cache) { continuation in
+                        continuation.finish(throwing: error)
                     }
                 } else {
                     let code = (response as? HTTPURLResponse)?.statusCode ?? 0
@@ -146,9 +145,8 @@ actor RemoteImageLoader {
                         code: code,
                         userInfo: [NSLocalizedDescriptionKey: "fetch data fail"]
                     )
-                    await self.traverseChannels(from: cache) { channel in
-                        channel.fail(error)
-                        channel.finish()
+                    await self.traverseStreams(from: cache) { continuation in
+                        continuation.finish(throwing: error)
                     }
                 }
             }
@@ -166,28 +164,28 @@ actor RemoteImageLoader {
                         return
                     }
                     let progress = Float(value) / Float(dataTask.progress.totalUnitCount)
-                    await self.traverseChannels(from: cache) { channel in
-                        await channel.send(TaskStatus.downloading(progress))
+                    await self.traverseStreams(from: cache) { continuation in
+                        continuation.yield(.downloading(progress))
                     }
                 }
             }.store(in: &subscribers)
 
-        let cache = Cache(dataTask: dataTask, channel: channel)
+        let cache = Cache(dataTask: dataTask, continuation: continuation)
         cacheStore.add(cache, with: url)
 
-        let downloadTask = DownloadTask(stream: channel, task: dataTask, subscribers: subscribers)
+        let downloadTask = DownloadTask(stream: stream, task: dataTask, subscribers: subscribers)
         return downloadTask
     }
 }
 
 extension RemoteImageLoader {
 
-    private func traverseChannels(
+    private func traverseStreams(
         from cache: Cache,
-        then handler: (TaskStatusChannel) async -> Void
+        then handler: (TaskStatusStream.Continuation) async -> Void
     ) async {
-        for channel in cache.channels {
-            await handler(channel)
+        for continuation in cache.continuations {
+            await handler(continuation)
         }
     }
 }
