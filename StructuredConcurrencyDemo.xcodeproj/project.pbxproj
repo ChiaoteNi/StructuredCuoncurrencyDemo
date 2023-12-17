@@ -72,6 +72,7 @@
 		9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemoTest.swift; sourceTree = "<group>"; };
 		935D81832A0644A600EEBDC9 /* ActorReentrancyDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ActorReentrancyDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		935D81862A0663D200EEBDC9 /* ActorDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ActorDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		935F860B2B32108B0033E547 /* ExecutingLimiter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ExecutingLimiter.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		93C363C22A07A9A90059A820 /* CustomActorExecutorDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = CustomActorExecutorDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		93D6A85D29D326C400940CCF /* StructuredConcurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StructuredConcurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredConcurrencyDemoApp.swift; sourceTree = "<group>"; };
@@ -150,6 +151,14 @@
 			path = "Swift Async Algorithms";
 			sourceTree = "<group>";
 		};
+		934D11C62B2EE04E00350EAE /* Advance usage - Task handling pool */ = {
+			isa = PBXGroup;
+			children = (
+				935F860B2B32108B0033E547 /* ExecutingLimiter.playground */,
+			);
+			path = "Advance usage - Task handling pool";
+			sourceTree = "<group>";
+		};
 		93C363C32A07AC0F0059A820 /* AsyncSequenceDemoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +217,7 @@
 				93D6A88E29D3271400940CCF /* MainActor */,
 				93D6A8B329D3271400940CCF /* AsyncSequence */,
 				9343566B29D3BFB900F9024F /* Actor */,
+				934D11C62B2EE04E00350EAE /* Advance usage - Task handling pool */,
 				93D6A8B229D3271400940CCF /* TODO */,
 			);
 			path = Demo;
