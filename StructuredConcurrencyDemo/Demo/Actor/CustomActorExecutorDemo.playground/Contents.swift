@@ -15,7 +15,7 @@ class Printer {
     // I leaved it here was to modify the demonstration code for different cases easily during the live demo.
     func execute(priority: TaskPriority, delays: UInt64 = 1) async {
         print("\(Thread.current)")
-        Task(priority: priority) {
+        Task(priority: priority) { @SpecificQueueActor in
             try? await Task.sleep(nanoseconds: delays)
             print("yo \(priority)")
         }
@@ -25,9 +25,9 @@ class Printer {
 print(TaskPriority.high, TaskPriority.medium, TaskPriority.low)
 
 Task.detached() {
-    await Printer().execute(priority: .low)
-    await Printer().execute(priority: .low)
-    await Printer().execute(priority: .medium)
-    await Printer().execute(priority: .high)
-    await Printer().execute(priority: .high)
+    await Printer().execute(priority: .low, delays: 5)
+    await Printer().execute(priority: .low, delays: 4)
+    await Printer().execute(priority: .medium, delays: 3)
+    await Printer().execute(priority: .high, delays: 2)
+    await Printer().execute(priority: .high, delays: 1)
 }

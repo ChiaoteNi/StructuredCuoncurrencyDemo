@@ -27,11 +27,20 @@ final class SpecificQueueExecutor: SerialExecutor { // A service that executes j
     // Therefore, you can also choose other ways like using RunLoop, Timer, Thread, and so on.
     static let queue = DispatchQueue(label: "com.executor.specificQueue")
 
+    // For iOS 13.0 ~ 16
+    // This interface has been marked deprecated since iOS 17
     func enqueue(_ job: UnownedJob) { // UnownedJob: a unit of scheduleable work.
         SpecificQueueExecutor.queue.sync {
-//            dump(job)
-            job._runSynchronously(on: self.asUnownedSerialExecutor())
+            print(job.priority.rawValue)
+            job.runSynchronously(on: self.asUnownedSerialExecutor())
         }
+    }
+
+    // For iOS 17.0
+    @available(iOS 17.0, *)
+    nonisolated func enqueue(_ job: consuming ExecutorJob) {
+        let unownedJob = UnownedJob(job)
+        enqueue(unownedJob)
     }
 
     // Convert this executor value to the optimized form of borrowed executor references.
