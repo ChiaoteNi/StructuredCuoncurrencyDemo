@@ -95,10 +95,10 @@ final class LimitedJobExecutor: SerialExecutor {
 }
 
 @globalActor
-final actor LimitedExecutingActor: GlobalActor {
-    typealias ActorType = LimitedExecutingActor
+public final actor LimitedExecutingActor: GlobalActor {
+    public typealias ActorType = LimitedExecutingActor
 
-    static var shared = LimitedExecutingActor()
+    public static var shared = LimitedExecutingActor()
 
     let executor: LimitedJobExecutor
     public let unownedExecutor: UnownedSerialExecutor

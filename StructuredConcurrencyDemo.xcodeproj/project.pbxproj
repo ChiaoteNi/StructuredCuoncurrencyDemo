@@ -65,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		9301FC972B2EA74B006880DC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9314A5C82B312FBB000ED17E /* AsyncSemephore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSemephore.swift; sourceTree = "<group>"; };
 		9343566D29D3E80800F9024F /* FakeBundleServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBundleServices.swift; sourceTree = "<group>"; };
 		9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequenceDemo.swift; sourceTree = "<group>"; };
 		9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemo.swift; sourceTree = "<group>"; };
@@ -134,6 +135,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		933212D32B32181C00B5BCE0 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				9314A5C82B312FBB000ED17E /* AsyncSemephore.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		9343566B29D3BFB900F9024F /* Actor */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +183,7 @@
 				9301FC972B2EA74B006880DC /* README.md */,
 				93D6A85F29D326C400940CCF /* StructuredConcurrencyDemo */,
 				93D6A85E29D326C400940CCF /* Products */,
+				933212D32B32181C00B5BCE0 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

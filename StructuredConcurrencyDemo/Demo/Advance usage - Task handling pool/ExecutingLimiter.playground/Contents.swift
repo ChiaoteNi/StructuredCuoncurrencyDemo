@@ -8,17 +8,22 @@ final class ImageDownloader {
 
     typealias DownloadTask = Task<UIImage, Error>
 
+    private let semephore = AsyncSemaphore(resourceCount: 3)
+
     func downlaodImage(with url: URL) -> DownloadTask {
-        return DownloadTask { @LimitedExecutingActor in
-            print("🎉 \(url) start")
+        return DownloadTask {
+            await semephore.wait()
             try Task.checkCancellation()
+            print("🎉 \(url) start")
             let result = try await download(with: url)
             print("🎉 \(url) success")
+            await semephore.signal()
             return result
         }
     }
 
     private func download(with url: URL) async throws -> UIImage {
+        try await Task.sleep(nanoseconds: 2_000_000_000)
         return UIImage()
     }
 }
