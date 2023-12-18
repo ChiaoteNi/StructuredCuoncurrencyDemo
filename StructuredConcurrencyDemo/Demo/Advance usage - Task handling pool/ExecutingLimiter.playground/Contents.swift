@@ -8,7 +8,10 @@ final class ImageDownloader {
 
     typealias DownloadTask = Task<UIImage, Error>
 
-    private let semephore = AsyncSemaphore(resourceCount: 3)
+    private let semephore = AsyncResourceLimiter(
+        resourceCount: 3,
+        releaseStrategy: .LIFO
+    )
 
     func downlaodImage(with url: URL) -> DownloadTask {
         return DownloadTask {
@@ -23,7 +26,7 @@ final class ImageDownloader {
     }
 
     private func download(with url: URL) async throws -> UIImage {
-        try await Task.sleep(nanoseconds: 2_000_000_000)
+        try await Task.sleep(nanoseconds: 1_000_000_000)
         return UIImage()
     }
 }
