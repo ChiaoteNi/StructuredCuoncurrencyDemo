@@ -16,7 +16,19 @@ public actor AsyncResourceLimiter {
         case FIFO
     }
 
-    private var waitingQueue: [CheckedContinuation<Void, Never>] = []
+    // It's not required, you can use OrderedDictionary in this class as well.
+    struct Resource {
+        let id = UUID()
+        let continuation: ResourceContinuation
+    }
+
+    struct LimiterError: Error {
+        let message: String
+    }
+
+    typealias ResourceContinuation = CheckedContinuation<(), Error>
+
+    private var waitingQueue: [Resource] = []
     private var availableResources: Int
     private let releaseStrategy: ReleaseStrategy
 
@@ -31,19 +43,38 @@ public actor AsyncResourceLimiter {
 
     /// Asynchronously waits to acquire a resource.
     /// If no resources are available, suspends the caller until a resource is released.
-    public func wait() async {
+    /// - Parameter timeout: The maximum amount of time in nanoseconds to wait for a resource to become available.
+    /// - Throws: An error if the timeout is reached before a resource becomes available.
+    public func wait(timeout: UInt64? = nil) async throws {
         availableResources -= 1
 
         guard availableResources < 0 else { return }
 
-        await withCheckedContinuation { continuation in
+        try await withCheckedThrowingContinuation { continuation in
+            let resource = Resource(continuation: continuation)
             switch releaseStrategy {
             case .LIFO:
-                waitingQueue.append(continuation)
+                waitingQueue.append(resource)
             case .FIFO:
-                waitingQueue.insert(continuation, at: 0)
+                waitingQueue.insert(resource, at: 0)
             }
             print("🌲 Waiting Queue Count: \(waitingQueue.count)")
+
+            guard let timeout = timeout else {
+                return
+            }
+
+            Task {
+                try await Task.sleep(nanoseconds: timeout)
+
+                guard let index = waitingQueue.firstIndex(where: {
+                    $0.id == resource.id
+                }) else {
+                    return
+                }
+                waitingQueue.remove(at: index)
+                continuation.resume(throwing: LimiterError(message: "Timeout"))
+            }
         }
     }
 
@@ -52,7 +83,7 @@ public actor AsyncResourceLimiter {
     public func signal() async {
         availableResources += 1
 
-        guard let continuation = waitingQueue.popLast() else {
+        guard let continuation = waitingQueue.popLast()?.continuation else {
             return
         }
         print("✨ Resuming Task, Waiting Queue Count: \(waitingQueue.count)")

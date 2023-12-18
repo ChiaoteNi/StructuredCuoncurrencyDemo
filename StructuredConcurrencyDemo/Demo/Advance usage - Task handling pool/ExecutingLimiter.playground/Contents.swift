@@ -15,7 +15,7 @@ final class ImageDownloader {
 
     func downlaodImage(with url: URL) -> DownloadTask {
         return DownloadTask {
-            await semephore.wait()
+            try await semephore.wait(timeout: 1_000_000_000)
             try Task.checkCancellation()
             print("🎉 \(url) start")
             let result = try await download(with: url)
@@ -26,7 +26,7 @@ final class ImageDownloader {
     }
 
     private func download(with url: URL) async throws -> UIImage {
-        try await Task.sleep(nanoseconds: 1_000_000_000)
+        try await Task.sleep(nanoseconds: 2_000_000_000)
         return UIImage()
     }
 }
@@ -40,7 +40,7 @@ for task in tasks {
     do {
         let result = try await task.value
     } catch {
-        print(error.localizedDescription)
+        print("💥", error.localizedDescription)
         throw error
     }
 }
