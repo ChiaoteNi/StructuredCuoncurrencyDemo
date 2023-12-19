@@ -74,6 +74,8 @@
 		935D81862A0663D200EEBDC9 /* ActorDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ActorDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		935F860B2B32108B0033E547 /* ExecutingLimiter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ExecutingLimiter.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		93BDD3862B31327C0076111A /* AsyncResourceLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncResourceLimiter.swift; sourceTree = "<group>"; };
+		93BDD38B2B31674D0076111A /* TaskLocalPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TaskLocalPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		93BDD3972B31C5D40076111A /* TaskLocalDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TaskLocalDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		93C363C22A07A9A90059A820 /* CustomActorExecutorDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = CustomActorExecutorDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		93D6A85D29D326C400940CCF /* StructuredConcurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StructuredConcurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredConcurrencyDemoApp.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				93D6A8B329D3271400940CCF /* AsyncSequence */,
 				9343566B29D3BFB900F9024F /* Actor */,
 				934D11C62B2EE04E00350EAE /* Advance usage - Task handling pool */,
+				93BDD3882B315EAC0076111A /* TaskLocal */,
 				93D6A8B229D3271400940CCF /* TODO */,
 			);
 			path = Demo;
@@ -416,7 +419,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					93D6A85C29D326C400940CCF = {
 						CreatedOnToolsVersion = 14.1;
@@ -573,6 +576,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -633,6 +637,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
