@@ -34,6 +34,14 @@
   - CustomActorExecutorDemo.playground:
   - ActorReentrancyDemo.playground
 
+### Part IV: (Dec. 18)
+- **TaskLocal**
+  - Basic behaviors of TaskLocal
+  - Some potential usages of TaskLocal
+- **AsyncResourceLimiter**
+  - A simple implementation to limit async function execution at the same time.
+- Some updates from Swift 5.9 for the Part II and III demonstrations
+
 ## How to use this demo project?
 **Part I:**
 All demos work with their demo view, which is compatible with SwiftUI Preview. Please use the demo project in the following way:
@@ -52,9 +60,16 @@ Most of the demos are triggered by the test cases, so please use the demo projec
 **Part III:**
 All demonstrations can be found in the following playground files:
 
-1. ActorDemo.playground
-2. CustomActorExecutorDemo.playground
-3. ActorReentrancyDemo.playground
+- ActorDemo.playground
+- CustomActorExecutorDemo.playground
+- ActorReentrancyDemo.playground
+
+**Part IV:**
+All demonstrations can be found in the following playground files:
+
+- TaskLocalDemo.playground
+- TaskLocalPlayground.playground
+- ExecutingLimiter.playground
 
 Simply highlight sections of the code and interact directly within the playground.
 
