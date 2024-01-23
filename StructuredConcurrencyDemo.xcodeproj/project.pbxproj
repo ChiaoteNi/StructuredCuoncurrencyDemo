@@ -13,6 +13,9 @@
 		9343567229D3E80800F9024F /* AsyncSequenceDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */; };
 		9343567629D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567429D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift */; };
 		9343567729D3E81900F9024F /* AsyncSequenceDemoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9343567529D3E81900F9024F /* AsyncSequenceDemoTest.swift */; };
+		937B5DC72B5BF27E007D0D48 /* TaskSequence + WaitForAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B5DC62B5BF27E007D0D48 /* TaskSequence + WaitForAll.swift */; };
+		937B5DC92B5BF2CE007D0D48 /* WaitForAllBehaviorDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B5DC82B5BF2CE007D0D48 /* WaitForAllBehaviorDemo.swift */; };
+		937B5DCC2B5CDAEB007D0D48 /* Sequence + KeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B5DCB2B5CDAEB007D0D48 /* Sequence + KeyPath.swift */; };
 		93D6A86129D326C400940CCF /* StructuredConcurrencyDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */; };
 		93D6A86329D326C400940CCF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A86229D326C400940CCF /* ContentView.swift */; };
 		93D6A86529D326C500940CCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93D6A86429D326C500940CCF /* Assets.xcassets */; };
@@ -74,9 +77,9 @@
 		935D81832A0644A600EEBDC9 /* ActorReentrancyDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ActorReentrancyDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		935D81862A0663D200EEBDC9 /* ActorDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ActorDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		935F860B2B32108B0033E547 /* ExecutingLimiter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ExecutingLimiter.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		93BDD3862B31327C0076111A /* AsyncResourceLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncResourceLimiter.swift; sourceTree = "<group>"; };
-		93BDD38B2B31674D0076111A /* TaskLocalPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TaskLocalPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		93BDD3972B31C5D40076111A /* TaskLocalDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TaskLocalDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		937B5DC62B5BF27E007D0D48 /* TaskSequence + WaitForAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskSequence + WaitForAll.swift"; sourceTree = "<group>"; };
+		937B5DC82B5BF2CE007D0D48 /* WaitForAllBehaviorDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitForAllBehaviorDemo.swift; sourceTree = "<group>"; };
+		937B5DCB2B5CDAEB007D0D48 /* Sequence + KeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence + KeyPath.swift"; sourceTree = "<group>"; };
 		93C363C22A07A9A90059A820 /* CustomActorExecutorDemo.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = CustomActorExecutorDemo.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		93D6A85D29D326C400940CCF /* StructuredConcurrencyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StructuredConcurrencyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredConcurrencyDemoApp.swift; sourceTree = "<group>"; };
@@ -180,6 +183,14 @@
 			path = "Advance usage - Task handling pool";
 			sourceTree = "<group>";
 		};
+		937B5DCA2B5CDABC007D0D48 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				937B5DCB2B5CDAEB007D0D48 /* Sequence + KeyPath.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		93C363C32A07AC0F0059A820 /* AsyncSequenceDemoTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +225,7 @@
 				93D6A86029D326C400940CCF /* StructuredConcurrencyDemoApp.swift */,
 				93D6A86229D326C400940CCF /* ContentView.swift */,
 				93D6A88A29D3271400940CCF /* Demo */,
+				937B5DCA2B5CDABC007D0D48 /* Extension */,
 				93D6A86429D326C500940CCF /* Assets.xcassets */,
 				93D6A86629D326C500940CCF /* Preview Content */,
 			);
@@ -389,6 +401,15 @@
 			path = "Demonstrations for basic behavior";
 			sourceTree = "<group>";
 		};
+		93FE263C2B5D2CAF00F624C5 /* Demonstrations for Convenient functions */ = {
+			isa = PBXGroup;
+			children = (
+				937B5DC62B5BF27E007D0D48 /* TaskSequence + WaitForAll.swift */,
+				937B5DC82B5BF2CE007D0D48 /* WaitForAllBehaviorDemo.swift */,
+			);
+			path = "Demonstrations for Convenient functions";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -499,6 +520,7 @@
 				93D6A8D129D3271400940CCF /* MessageLayoutContainer.swift in Sources */,
 				93D6A8D029D3271400940CCF /* TimeText.swift in Sources */,
 				93D6A8BD29D3271400940CCF /* CancelDemo.swift in Sources */,
+				937B5DC72B5BF27E007D0D48 /* TaskSequence + WaitForAll.swift in Sources */,
 				93D6A8DA29D3271400940CCF /* DemoProtocol.swift in Sources */,
 				93D6A8C329D3271400940CCF /* MessagePresenter.swift in Sources */,
 				93D6A8DD29D3271400940CCF /* Errors.swift in Sources */,
@@ -521,6 +543,7 @@
 				93D6A86329D326C400940CCF /* ContentView.swift in Sources */,
 				93D6A8CE29D3271400940CCF /* TrackScrollingScrollView.swift in Sources */,
 				93D6A8D729D3271400940CCF /* MainActorDemoView.swift in Sources */,
+				937B5DCC2B5CDAEB007D0D48 /* Sequence + KeyPath.swift in Sources */,
 				93D6A8DF29D3271400940CCF /* ResourceService.swift in Sources */,
 				93D6A8CD29D3271400940CCF /* LocalMessageWorker.swift in Sources */,
 				93D6A86129D326C400940CCF /* StructuredConcurrencyDemoApp.swift in Sources */,
@@ -542,6 +565,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				937B5DC92B5BF2CE007D0D48 /* WaitForAllBehaviorDemo.swift in Sources */,
 				9343567729D3E81900F9024F /* AsyncSequenceDemoTest.swift in Sources */,
 				9343567629D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift in Sources */,
 			);
