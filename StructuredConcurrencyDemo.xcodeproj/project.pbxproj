@@ -54,6 +54,11 @@
 		93D6A8DE29D3271400940CCF /* GroupingTasksDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A8B929D3271400940CCF /* GroupingTasksDemoView.swift */; };
 		93D6A8DF29D3271400940CCF /* ResourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A8BA29D3271400940CCF /* ResourceService.swift */; };
 		93D6A8E029D3271400940CCF /* GroupingTasksDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D6A8BB29D3271400940CCF /* GroupingTasksDemo.swift */; };
+		93E20D3F2B5FE36A001A0099 /* TaskSequence + WaitForTheFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E20D3E2B5FE36A001A0099 /* TaskSequence + WaitForTheFirst.swift */; };
+		93E20D412B5FE3C8001A0099 /* WaitForTheFirstBehaviorDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E20D402B5FE3C8001A0099 /* WaitForTheFirstBehaviorDemo.swift */; };
+		93FE263F2B5D2E2800F624C5 /* SkipProcessDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE263E2B5D2E2800F624C5 /* SkipProcessDemoView.swift */; };
+		93FE26412B5D30F400F624C5 /* SkipProcessDemoInterfactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE26402B5D30F400F624C5 /* SkipProcessDemoInterfactor.swift */; };
+		93FE26432B5D310200F624C5 /* SkipProcessDemoStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FE26422B5D310200F624C5 /* SkipProcessDemoStateStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +126,11 @@
 		93D6A8B929D3271400940CCF /* GroupingTasksDemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingTasksDemoView.swift; sourceTree = "<group>"; };
 		93D6A8BA29D3271400940CCF /* ResourceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceService.swift; sourceTree = "<group>"; };
 		93D6A8BB29D3271400940CCF /* GroupingTasksDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingTasksDemo.swift; sourceTree = "<group>"; };
+		93E20D3E2B5FE36A001A0099 /* TaskSequence + WaitForTheFirst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskSequence + WaitForTheFirst.swift"; sourceTree = "<group>"; };
+		93E20D402B5FE3C8001A0099 /* WaitForTheFirstBehaviorDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitForTheFirstBehaviorDemo.swift; sourceTree = "<group>"; };
+		93FE263E2B5D2E2800F624C5 /* SkipProcessDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipProcessDemoView.swift; sourceTree = "<group>"; };
+		93FE26402B5D30F400F624C5 /* SkipProcessDemoInterfactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipProcessDemoInterfactor.swift; sourceTree = "<group>"; };
+		93FE26422B5D310200F624C5 /* SkipProcessDemoStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipProcessDemoStateStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +403,15 @@
 			path = "Grouping Tasks";
 			sourceTree = "<group>";
 		};
+		93E20D3D2B5FE350001A0099 /* Wait for the first */ = {
+			isa = PBXGroup;
+			children = (
+				93E20D3E2B5FE36A001A0099 /* TaskSequence + WaitForTheFirst.swift */,
+				93E20D402B5FE3C8001A0099 /* WaitForTheFirstBehaviorDemo.swift */,
+			);
+			path = "Wait for the first";
+			sourceTree = "<group>";
+		};
 		93FE263B2B5D2C6400F624C5 /* Demonstrations for basic behavior */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +427,17 @@
 				937B5DC82B5BF2CE007D0D48 /* WaitForAllBehaviorDemo.swift */,
 			);
 			path = "Demonstrations for Convenient functions";
+			sourceTree = "<group>";
+		};
+		93FE263D2B5D2CDA00F624C5 /* Demonstrations for real life cases */ = {
+			isa = PBXGroup;
+			children = (
+				93E20D3D2B5FE350001A0099 /* Wait for the first */,
+				93FE263E2B5D2E2800F624C5 /* SkipProcessDemoView.swift */,
+				93FE26402B5D30F400F624C5 /* SkipProcessDemoInterfactor.swift */,
+				93FE26422B5D310200F624C5 /* SkipProcessDemoStateStore.swift */,
+			);
+			path = "Demonstrations for real life cases";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -523,6 +553,7 @@
 				937B5DC72B5BF27E007D0D48 /* TaskSequence + WaitForAll.swift in Sources */,
 				93D6A8DA29D3271400940CCF /* DemoProtocol.swift in Sources */,
 				93D6A8C329D3271400940CCF /* MessagePresenter.swift in Sources */,
+				93FE26412B5D30F400F624C5 /* SkipProcessDemoInterfactor.swift in Sources */,
 				93D6A8DD29D3271400940CCF /* Errors.swift in Sources */,
 				93D6A8D329D3271400940CCF /* BubbleShape.swift in Sources */,
 				93D6A8CA29D3271400940CCF /* Store.swift in Sources */,
@@ -530,6 +561,7 @@
 				93D6A8D229D3271400940CCF /* SenderTitle.swift in Sources */,
 				9343567129D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift in Sources */,
 				93D6A8D929D3271400940CCF /* BasicDemoView.swift in Sources */,
+				93FE263F2B5D2E2800F624C5 /* SkipProcessDemoView.swift in Sources */,
 				93D6A8C029D3271400940CCF /* MessageModel.swift in Sources */,
 				93D6A8C629D3271400940CCF /* MessageProvider.swift in Sources */,
 				93D6A8CF29D3271400940CCF /* URLImage.swift in Sources */,
@@ -538,7 +570,6 @@
 				93D6A8BE29D3271400940CCF /* CancelDemoView.swift in Sources */,
 				93D6A8E029D3271400940CCF /* GroupingTasksDemo.swift in Sources */,
 				93D6A8DE29D3271400940CCF /* GroupingTasksDemoView.swift in Sources */,
-				93BDD3872B31327C0076111A /* AsyncResourceLimiter.swift in Sources */,
 				9343567229D3E80800F9024F /* AsyncSequenceDemo.swift in Sources */,
 				93D6A86329D326C400940CCF /* ContentView.swift in Sources */,
 				93D6A8CE29D3271400940CCF /* TrackScrollingScrollView.swift in Sources */,
@@ -550,6 +581,8 @@
 				93D6A8C929D3271400940CCF /* ImageMessageProvider.swift in Sources */,
 				93D6A8C229D3271400940CCF /* Message.swift in Sources */,
 				93D6A8CB29D3271400940CCF /* RemoteMessageWorker.swift in Sources */,
+				93E20D3F2B5FE36A001A0099 /* TaskSequence + WaitForTheFirst.swift in Sources */,
+				93FE26432B5D310200F624C5 /* SkipProcessDemoStateStore.swift in Sources */,
 				9343567029D3E80800F9024F /* FakeBundleServices.swift in Sources */,
 				93D6A8D629D3271400940CCF /* MainActorDemo.swift in Sources */,
 				93D6A8D529D3271400940CCF /* MessageView.swift in Sources */,
@@ -567,6 +600,7 @@
 			files = (
 				937B5DC92B5BF2CE007D0D48 /* WaitForAllBehaviorDemo.swift in Sources */,
 				9343567729D3E81900F9024F /* AsyncSequenceDemoTest.swift in Sources */,
+				93E20D412B5FE3C8001A0099 /* WaitForTheFirstBehaviorDemo.swift in Sources */,
 				9343567629D3E81900F9024F /* ImageDownloaderWithAsyncSequenceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

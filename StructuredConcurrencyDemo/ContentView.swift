@@ -46,6 +46,11 @@ struct ContentView: View {
                 // Demostrations about some real life cases related to multiple tasks handling
                 // 1. Demonstrations for the basic behavior
                 // 2. Demonstrations for some convenient functions
+                // 3. SkipProcessDemoView
+                Spacer()
+                NavigationLink("Skippable Process") {
+                    SkipProcessDemoView()
+                }
             }
             .padding(50)
         }
