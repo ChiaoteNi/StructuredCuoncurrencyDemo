@@ -65,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		9301FC972B2EA74B006880DC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9310EAC82B58DEC7002D222B /* WaitForAllResults.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = WaitForAllResults.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9343566D29D3E80800F9024F /* FakeBundleServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBundleServices.swift; sourceTree = "<group>"; };
 		9343566E29D3E80800F9024F /* ImageDownloaderWithAsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderWithAsyncSequenceDemo.swift; sourceTree = "<group>"; };
 		9343566F29D3E80800F9024F /* AsyncSequenceDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncSequenceDemo.swift; sourceTree = "<group>"; };
@@ -137,10 +138,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9310EAC42B58DE3C002D222B /* Advance usage - Muiliple task handling */ = {
+			isa = PBXGroup;
+			children = (
+				93FE263B2B5D2C6400F624C5 /* Demonstrations for basic behavior */,
+				93FE263C2B5D2CAF00F624C5 /* Demonstrations for Convenient functions */,
+				93FE263D2B5D2CDA00F624C5 /* Demonstrations for real life cases */,
+			);
+			path = "Advance usage - Muiliple task handling";
+			sourceTree = "<group>";
+		};
 		933212D32B32181C00B5BCE0 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				9314A5C82B312FBB000ED17E /* AsyncSemephore.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -230,7 +240,7 @@
 				93D6A8B329D3271400940CCF /* AsyncSequence */,
 				9343566B29D3BFB900F9024F /* Actor */,
 				934D11C62B2EE04E00350EAE /* Advance usage - Task handling pool */,
-				93BDD3882B315EAC0076111A /* TaskLocal */,
+				9310EAC42B58DE3C002D222B /* Advance usage - Muiliple task handling */,
 				93D6A8B229D3271400940CCF /* TODO */,
 			);
 			path = Demo;
@@ -365,10 +375,18 @@
 			isa = PBXGroup;
 			children = (
 				93D6A8B929D3271400940CCF /* GroupingTasksDemoView.swift */,
-				93D6A8BA29D3271400940CCF /* ResourceService.swift */,
 				93D6A8BB29D3271400940CCF /* GroupingTasksDemo.swift */,
+				93D6A8BA29D3271400940CCF /* ResourceService.swift */,
 			);
 			path = "Grouping Tasks";
+			sourceTree = "<group>";
+		};
+		93FE263B2B5D2C6400F624C5 /* Demonstrations for basic behavior */ = {
+			isa = PBXGroup;
+			children = (
+				9310EAC82B58DEC7002D222B /* WaitForAllResults.playground */,
+			);
+			path = "Demonstrations for basic behavior";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

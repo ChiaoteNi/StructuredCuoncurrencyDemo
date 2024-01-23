@@ -34,10 +34,17 @@ struct ContentView: View {
                 // ./Demo/AsyncSequence/AsyncSequenceDemoTests
 
                 // MARK: PART III
-                // For demostrations for Actor, you can find them in the following playground files
+                // Demostrations about Actor, you can find them in the following playground files
                 // 1. ActorDemo.playground
                 // 2. CustomActorExecutorDemo.playground
                 // 3. ActorReentrancyDemo.playground
+
+                // MARK: PART IV
+                // Demostrations about an advance usage - AsyncSemaphore
+
+                // MARK: PART V
+                // Demostrations about some real life cases related to multiple tasks handling
+                // 1. Demonstrations for the basic behavior
             }
             .padding(50)
         }
