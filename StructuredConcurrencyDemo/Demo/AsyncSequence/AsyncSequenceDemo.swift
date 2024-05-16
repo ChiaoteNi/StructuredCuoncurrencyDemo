@@ -47,7 +47,7 @@ extension Sequence where Element: Sendable {
     }
 }
 
-// Solution 3: TaskGroup - execute the transform faster than the solution 1, but promise the order
+// Solution 3: TaskGroup - execute the transform faster than the solution 1, but doesn't promise the order
 extension Sequence {
 
     // following naming is to make the demo clearer for separating out these 3 cases
@@ -61,6 +61,8 @@ extension Sequence {
             body: { group in
                 forEach { element in
                     group.addTask {
+                        // Even if an error occurs here, 
+                        // the taskGroup will not throw the error until all tasks have been completed.
                         try await transform(element)
                     }
                 }
